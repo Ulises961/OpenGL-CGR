@@ -1,39 +1,76 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <GL/glut.h>
 #include <Math.h>
+
+#include "smokeCloud.cpp";
+
+int smoke = 0;
+
 void drawSq(){
-
-		glBegin(GL_POLYGON);
-		glVertex3f(-0.5, -0.5, 0.0);
-		glVertex3f(-0.5, 0.5, 0.0);
-		glVertex3f(0.5, 0.5, 0.0);
-		glVertex3f(0.5, -0.5, 0.0);
+	glBegin(GL_POLYGON);
+	glVertex3f(-0.5, -0.5, 0.0);
+	glVertex3f(-0.5, 0.5, 0.0);
+	glVertex3f(0.5, 0.5, 0.0);
+	glVertex3f(0.5, -0.5, 0.0);
 	glEnd();
-
 }
-void drawTriangle() {
+
+void drawTriangle(){
 	glBegin(GL_TRIANGLES);
 	glVertex3f(-2, 3.5, 0);
 	glVertex3f(-2.8, 3.5, 0);
 	glVertex3f(-1.5, 2.2, 0);
 	glEnd();
-
 }
 
+void smokeTimer(int value){
+	glutTimerFunc(1000, smokeTimer, 0);
 
-void drawFan() {
+	printf("I am about to make a smoke cloud.\n");
+	printf("This is the %dth cloud.\n", smoke);
+
+	if(smoke < 4)
+		smoke++;
+	else
+		smoke = 0;
+
+	glutPostRedisplay();
+}
+
+void drawFan(){
 
 	GLfloat triangleVertices[] = {
-		0,0,0,
-		1.5,0.2,0,
-		2,-2.5,0,
-		1,-3,0,
-		-1,-3,0,
-		-2,-2.5,0,
-		-1.5,0.2,0,
-		-0.5,0.5,0,
-		0.5,0.5,0,
-		1.5,0.2,0,
+		0,
+		0,
+		0,
+		1.5,
+		0.2,
+		0,
+		2,
+		-2.5,
+		0,
+		1,
+		-3,
+		0,
+		-1,
+		-3,
+		0,
+		-2,
+		-2.5,
+		0,
+		-1.5,
+		0.2,
+		0,
+		-0.5,
+		0.5,
+		0,
+		0.5,
+		0.5,
+		0,
+		1.5,
+		0.2,
+		0,
 
 	};
 
@@ -41,35 +78,27 @@ void drawFan() {
 	glVertexPointer(3, GL_FLOAT, 0, triangleVertices);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 10);
 	glDisableClientState(GL_VERTEX_ARRAY);
-
-
 }
 //render method (callback-function)
-void display()
-{
+void display(){
 	//clear all pixels
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	//draw white polygon with corners
 	glColor3f(1.0, 1.0, 1.0);
-//	drawSq();
+	//	drawSq();
 
 	glColor3f(.5, .5, 0.5);
-	
+
 	glPushMatrix();
-	
-		drawFan();
+
+	drawFan();
 	glPopMatrix();
 
 	glPushMatrix();
-		drawTriangle();
+	drawTriangle();
 	glPopMatrix();
 
-
-	glPushMatrix();
-		glBegin(GL_QUADS);
-		glVertex3f()
-	glPopMatrix();
 
 	glPushMatrix();
 	glColor3f(.5, .5, 0.5);
@@ -78,16 +107,15 @@ void display()
 	drawFan();
 	glPopMatrix();
 
-
+	smokeCloudSwitch(smoke);
 	//don't wait! process buffered OpenGL routines
-	glFlush();	
+	glFlush();
 }
 
 //initialization of the application. only started once.
-void init() 
-{
+void init(){
 	//select clearing color (color that is used as 'background')
-	glClearColor(0,0, 0, 0.0);
+	glClearColor(0, 0, 0, 0.0);
 
 	//initialize view
 	glMatrixMode(GL_PROJECTION);
@@ -98,7 +126,7 @@ void init()
 	glMatrixMode(GL_MODELVIEW);
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 
@@ -106,16 +134,17 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
 	//initialize window size and position. open window
-	glutInitWindowSize(250, 250); 
+	glutInitWindowSize(250, 250);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("OpenGL - CGR");
 
 	//call initialization routine
 	init();
-	
+
+
 	//register callback function to display graphics
-	glutDisplayFunc(display); 
-	
+	glutDisplayFunc(display);
+	glutTimerFunc(1000, smokeTimer, 0);
 	//enter main loop and process events
 	glutMainLoop();
 
