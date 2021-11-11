@@ -11,6 +11,39 @@ void drawSq(){
 	glEnd();
 
 }
+void drawTriangle() {
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-2, 3.5, 0);
+	glVertex3f(-2.8, 3.5, 0);
+	glVertex3f(-1.5, 2.2, 0);
+	glEnd();
+
+}
+
+
+void drawFan() {
+
+	GLfloat triangleVertices[] = {
+		0,0,0,
+		1.5,0.2,0,
+		2,-2.5,0,
+		1,-3,0,
+		-1,-3,0,
+		-2,-2.5,0,
+		-1.5,0.2,0,
+		-0.5,0.5,0,
+		0.5,0.5,0,
+		1.5,0.2,0,
+
+	};
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, triangleVertices);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 10);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+
+}
 //render method (callback-function)
 void display()
 {
@@ -19,33 +52,33 @@ void display()
 	glLoadIdentity();
 	//draw white polygon with corners
 	glColor3f(1.0, 1.0, 1.0);
-	drawSq();
+//	drawSq();
 
-	glPushMatrix();
-		glColor3f(0.0,0.0,1.0);
-		glTranslatef(0,1,0);
-		drawSq();
-	glPopMatrix();
-
-	glPushMatrix();
-		glColor3f(1.0,0.0,0.0);
-		glTranslatef(-1,0,0);
-		drawSq();
-	glPopMatrix();
+	glColor3f(.5, .5, 0.5);
 	
 	glPushMatrix();
-		glColor3f(0.0,1.0,0.0);
-		glTranslatef(0,-1,0);
-		drawSq();
+	
+		drawFan();
 	glPopMatrix();
 
 	glPushMatrix();
-		glColor3f(1.0,1.0,0.0);
-		glTranslatef(sqrt(1.5),-1,0);
-		glRotatef(45,0,0,1);
-
-		drawSq();
+		drawTriangle();
 	glPopMatrix();
+
+
+	glPushMatrix();
+		glBegin(GL_QUADS);
+		glVertex3f()
+	glPopMatrix();
+
+	glPushMatrix();
+	glColor3f(.5, .5, 0.5);
+	glTranslatef(0, 1, 0);
+	glRotatef(180, 0, 0, 0);
+	drawFan();
+	glPopMatrix();
+
+
 	//don't wait! process buffered OpenGL routines
 	glFlush();	
 }
@@ -54,7 +87,7 @@ void display()
 void init() 
 {
 	//select clearing color (color that is used as 'background')
-	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClearColor(0,0, 0, 0.0);
 
 	//initialize view
 	glMatrixMode(GL_PROJECTION);
