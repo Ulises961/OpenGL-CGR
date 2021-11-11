@@ -1,9 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <GL/glut.h>
-#include <Math.h>
-
-#include "smokeCloud.cpp";
+#include <math.h>
+#include "smokeCloud.cpp"
 
 int smoke = 0;
 
