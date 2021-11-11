@@ -10,16 +10,16 @@ void drawSmokeCloud(GLfloat start_x, GLfloat start_y, GLfloat width, GLfloat hei
     glPushMatrix();
     glBegin(GL_POLYGON);
     glVertex3f(start_x, start_y, 0.0); // bottom left
-    glVertex3f(end_x, start_y, 0.0); // bottom right
     glVertex3f(start_x, end_y, 0.0); // top left
+    glVertex3f(end_x, start_y, 0.0); // bottom right
     glVertex3f(end_x, end_y, 0.0); // top right
     glEnd();
     glPopMatrix();
 }
 
 void smokeCloudSwitch(int cloud_nr){
-    GLfloat width = 0.5;
-    GLfloat height = 0.5;
+    GLfloat width = 1;
+    GLfloat height = 1;
 
     switch (cloud_nr){
         case 0:
@@ -29,17 +29,17 @@ void smokeCloudSwitch(int cloud_nr){
 
         case 1:
             glColor3f(250, 1.0, 1.0);
-            drawSmokeCloud(0, 0, width, height);
+            drawSmokeCloud(1, 1, width, height);
             break;
 
         case 2:
             glColor3f(250, 1.0, 1.0);
-            drawSmokeCloud(0, 0, width, height);
+            drawSmokeCloud(2, 2, width, height);
             break;
 
         case 3:
             glColor3f(250, 1, 1.0);
-            drawSmokeCloud(0, 0, width, height);
+            drawSmokeCloud(3, 3, width, height);
             break;
         
         default:
