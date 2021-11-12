@@ -17,6 +17,45 @@
 //     glPopMatrix();
 // }
 
+void useRed(){
+    glColor3f(255, 0, 0);
+}
+
+void useYellow(){
+    glColor3f(255, 255, 0);
+}
+
+void useWhite(){
+    glColor3f(255, 255, 255);
+}
+
+void drawHeatingPad(int counter)
+{
+    int x = 0;
+    int y = -3;
+
+    int i;
+    double radius = 2.5;
+
+    if(counter > 5 && counter < 10)
+        useRed();
+    else if(counter > 2 && counter < 6)
+        useYellow();
+    else
+        useWhite();
+
+    double twicePi = 2.0 * 3.142;
+
+    glBegin(GL_TRIANGLE_FAN); //BEGIN CIRCLE
+    glVertex2f(x, y);         // center of circle
+    for (i = 0; i <= 20; i++)
+    {
+        glVertex2f(
+            (x + (radius * cos(i * twicePi / 20))), (y + (radius * sin(i * twicePi / 20))));
+    }
+    glEnd(); //END
+}
+
 void drawCircle(GLfloat x, GLfloat y)
 {
     //static float angle;
@@ -38,13 +77,15 @@ void drawCircle(GLfloat x, GLfloat y)
 }
 void drawSmokeCloud(GLfloat x, GLfloat y)
 {
-    for (int i =0; i < 5; i++)
+    glColor3f(250, 1.0, 1.0);
+
+    for (int i = 0; i < 5; i++)
     {
         x -= 0.1;
         y += 0.05;
         drawCircle(x, y);
-        x -= i/4;
-        y += i/2;
+        x -= i / 4;
+        y += i / 2;
         drawCircle(x, y);
     }
 }
@@ -56,27 +97,26 @@ void smokeCloudSwitch(int cloud_nr)
 
     switch (cloud_nr)
     {
-    case 0:
-        glColor3f(250, 1.0, 1.0);
+    case 7:
         drawSmokeCloud(-2.5, 3.7);
         break;
 
-    case 1:
-        glColor3f(250, 1.0, 1.0);
-         drawSmokeCloud(-2.6, 3.7);
-      
+    case 8:
+        drawSmokeCloud(-2.6, 3.8);
+
         break;
 
-    case 2:
-        glColor3f(250, 1.0, 1.0);
-         drawSmokeCloud(-2.6, 3.7);
-        drawSmokeCloud(-2.7, 3.9);
+    case 9:
+        drawSmokeCloud(-2.6, 3.9);
+        drawSmokeCloud(-2.7, 4.0);
         break;
 
-    case 3:
-        glColor3f(250, 1, 1.0);
-      
-        drawSmokeCloud(-2.8, 4);
+    case 10:
+        drawSmokeCloud(-2.8, 4.1);
+        break;
+
+    case 11:
+        drawSmokeCloud(-3.2, 4.2);
         break;
 
     default:

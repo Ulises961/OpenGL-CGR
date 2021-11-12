@@ -27,9 +27,9 @@ void smokeTimer(int value){
 	glutTimerFunc(1000, smokeTimer, 0);
 
 	printf("I am about to make a smoke cloud.\n");
-	printf("This is the %dth cloud.\n", smoke);
+	printf("This is the cloud nr %d.\n", smoke);
 
-	if(smoke < 4)
+	if(smoke < 13)
 		smoke++;
 	else
 		smoke = 0;
@@ -87,8 +87,12 @@ void display(){
 	glColor3f(1.0, 1.0, 1.0);
 	//	drawSq();
 
+	glColor3f(250, 1.0, 1.0);
+	glRotatef(45, 45, 0, 0);
+	drawHeatingPad(smoke);
 	glColor3f(.5, .5, 0.5);
 
+glLoadIdentity();
 	glPushMatrix();
 
 	drawFan();
@@ -105,6 +109,7 @@ void display(){
 	glRotatef(180, 0, 0, 0);
 	drawFan();
 	glPopMatrix();
+
 
 	smokeCloudSwitch(smoke);
 	//don't wait! process buffered OpenGL routines
