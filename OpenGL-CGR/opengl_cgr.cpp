@@ -119,7 +119,7 @@ void init(){
 	//initialize view
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-5.0, 5.0, -5.0, 5.0, -5.0, 5.0);
+	glOrtho(-10.0, 10.0, -10.0, 10.0, -5.0, 5.0);
 
 	//set matrix-mode back to model-view for rendering
 	glMatrixMode(GL_MODELVIEW);

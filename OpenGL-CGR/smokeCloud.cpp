@@ -38,13 +38,13 @@ void drawCircle(GLfloat x, GLfloat y)
 }
 void drawSmokeCloud(GLfloat x, GLfloat y)
 {
-    for (int i = 0; i < 5; i++)
+    for (int i =0; i < 5; i++)
     {
-        x -= 0.3;
-        y += 0.3;
+        x -= 0.1;
+        y += 0.05;
         drawCircle(x, y);
-        x -= 0.4;
-        y += 0.1;
+        x -= i/4;
+        y += i/2;
         drawCircle(x, y);
     }
 }
@@ -64,19 +64,19 @@ void smokeCloudSwitch(int cloud_nr)
     case 1:
         glColor3f(250, 1.0, 1.0);
          drawSmokeCloud(-2.6, 3.7);
-        drawSmokeCloud(-2.7, 3.8);
+      
         break;
 
     case 2:
         glColor3f(250, 1.0, 1.0);
          drawSmokeCloud(-2.6, 3.7);
-        drawSmokeCloud(-2.8, 3.9);
+        drawSmokeCloud(-2.7, 3.9);
         break;
 
     case 3:
         glColor3f(250, 1, 1.0);
-        drawSmokeCloud(-2.6, 3.7);
-        drawSmokeCloud(-2.9, 4);
+      
+        drawSmokeCloud(-2.8, 4);
         break;
 
     default:
