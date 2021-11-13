@@ -6,23 +6,34 @@
 
 int smoke = 0;
 
-void drawSq()
+void drawLine(GLfloat start_x, GLfloat start_y, GLfloat end_x, GLfloat end_y)
 {
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.2, 0, 0.0);
-	glVertex3f(-1.2, 1, 0.0);
-	glVertex3f(1.2, 1, 0.0);
-	glVertex3f(1.2, 0, 0.0);
+	glBegin(GL_LINES);
+	glVertex2f(start_x, start_y);
+	glVertex2f(end_x, end_y);
 	glEnd();
 }
-void drawHandle(){
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.5, -0.5, 0.0);
-	glVertex3f(-0.5, 0.5, 0.0);
-	glVertex3f(0.5, 0.5, 0.0);
-	glVertex3f(0.5, -0.5, 0.0);
-	glEnd();
 
+void drawHandle()
+{
+	useBlack();
+	glPushMatrix();
+	drawRectangle(1.8, 2.5, 1.4, 0.6);
+	glPopMatrix();
+	glPushMatrix();
+
+	glTranslatef(3.4, 2.65, 0);
+	glRotatef(-60.0, 0.0, 0.0, 1.0);
+	glTranslatef(-0.5, -0.5, 0);
+	drawRectangle(0, 0, 2.0, 0.6);
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(3.6, 1.12, 0);
+	glRotatef(80.0, 0.0, 0.0, 1.0);
+	glTranslatef(-0.5, -0.5, 0);
+	drawRectangle(0.0, 0.0, 1.0, 0.6);
+	glPopMatrix();
+	glLoadIdentity();
 }
 
 void drawTriangle()
@@ -53,12 +64,9 @@ void drawLid()
 	glEnd(); //END
 }
 
-void smokeTimer(int value)
+void animationFrameTimer(int value)
 {
-	glutTimerFunc(1000, smokeTimer, 0);
-
-	printf("I am about to make a smoke cloud.\n");
-	printf("This is the cloud nr %d.\n", smoke);
+	glutTimerFunc(350, animationFrameTimer, 0);
 
 	if (smoke < 13)
 		smoke++;
@@ -72,36 +80,16 @@ void drawFan()
 {
 
 	GLfloat triangleVertices[] = {
-		0,
-		0,
-		0,
-		1.5,
-		0.2,
-		0,
-		2,
-		-2.5,
-		0,
-		1,
-		-3,
-		0,
-		-1,
-		-3,
-		0,
-		-2,
-		-2.5,
-		0,
-		-1.5,
-		0.2,
-		0,
-		-0.5,
-		0.5,
-		0,
-		0.5,
-		0.5,
-		0,
-		1.5,
-		0.2,
-		0,
+		0,0,0, // Center
+		1.5,0.2,0, // upperRight
+		2,-2.5,0, // bottomRight
+		1,-3,0, // bottomCenterRight
+		-1,-3,0, // bottomCenterLeft
+		-2,-2.5,0, // bottomLeft
+		-1.5,0.2,0, // upperLeft
+		-0.5,0.5,0, // upperCenterLeft
+		0.5,0.5,0, // upperCenterRight
+		 1.5,0.2,0, // closingCircle
 
 	};
 
@@ -117,17 +105,16 @@ void display()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	//draw white polygon with corners
-	glColor3f(1.0, 1.0, 1.0);
+
 	//	drawSq();
 
 	glColor3f(250, 1.0, 1.0);
 	glRotatef(45, 45, 0, 0);
 	drawHeatingPad(smoke);
-	glColor3f(.5, .5, 0.5);
+	useGray();
 
 	glLoadIdentity();
 	glPushMatrix();
-
 	drawFan();
 	glPopMatrix();
 
@@ -136,16 +123,43 @@ void display()
 	glPopMatrix();
 
 	glPushMatrix();
-	glColor3f(.5, .5, 0.5);
+
 	glTranslatef(0, 1, 0);
-	glRotatef(180, 0, 0, 0);
+	glRotatef(180, 0, 0, 1);
 	drawFan();
 	glPopMatrix();
 	glPushMatrix();
-	glColor3f(0.5, 0.5, 0.5);
+
 	drawLid();
+
+	useBlack();
+	drawLine(-2, 3.5, 2, 3.5);
 	glPopMatrix();
-	drawSq();
+
+	drawHandle();
+	glPushMatrix();
+	useBlack();
+	glTranslatef(0, 4.2, 0);
+	glScalef(0.2, 0.2, 0.2);
+	glRotatef(180, 0, 0, 1);
+	drawFan();
+	glPopMatrix();
+	
+	useGray();
+
+	drawRectangle(-1.2, 0, 2.4, 1);
+	glPushMatrix();
+	useBlack();
+	drawLine(-0.5, 0.3, -1, -3);
+	drawLine(0.5, 0.3, 1, -3);
+	
+	// drawLine(1.5, 0.2, , );
+	// drawLine(, , , );
+
+	drawLine(-1.2, 0.7, 1.2, 0.7);
+	drawLine(-1.2, 0.3, 1.2, 0.3);
+	glPopMatrix();
+	
 	smokeCloudSwitch(smoke);
 	//don't wait! process buffered OpenGL routines
 	glFlush();
@@ -155,12 +169,12 @@ void display()
 void init()
 {
 	//select clearing color (color that is used as 'background')
-	glClearColor(0, 0, 0, 0.0);
+	glClearColor(.3, 0, 0, 0.2);
 
 	//initialize view
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-10.0, 10.0, -10.0, 10.0, -5.0, 5.0);
+	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);
 
 	//set matrix-mode back to model-view for rendering
 	glMatrixMode(GL_MODELVIEW);
@@ -183,7 +197,7 @@ int main(int argc, char **argv)
 
 	//register callback function to display graphics
 	glutDisplayFunc(display);
-	glutTimerFunc(1000, smokeTimer, 0);
+	glutTimerFunc(1000, animationFrameTimer, 0);
 	//enter main loop and process events
 	glutMainLoop();
 

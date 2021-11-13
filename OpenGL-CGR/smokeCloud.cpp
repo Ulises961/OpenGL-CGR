@@ -2,21 +2,9 @@
 #include <stdio.h>
 #include <GL/glut.h>
 #include <math.h>
+#include "utils.cpp"
 
-void useRed()
-{
-    glColor3f(255, 0, 0);
-}
 
-void useYellow()
-{
-    glColor3f(255, 255, 0);
-}
-
-void useWhite()
-{
-    glColor3f(255, 255, 255);
-}
 void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
 {
     //static float angle;
@@ -57,7 +45,7 @@ void drawHeatingPad(int counter)
 
 void drawSmokeCloud(GLfloat x, GLfloat y)
 {
-    glColor3f(250, 1.0, 1.0);
+    useWhite();
 
     for (int i = 0; i < 5; i++)
     {
@@ -69,7 +57,7 @@ void drawSmokeCloud(GLfloat x, GLfloat y)
         x -= i / 4;
         y += i / 2;
        
-    drawCircle(x, y, 0.7);
+    drawCircle(x, y, 0.6);
     
     }
 }
@@ -81,30 +69,23 @@ void smokeCloudSwitch(int cloud_nr)
 
     switch (cloud_nr)
     {
-    case 5:
-        glColor3f(250, 1.0, 1.0);
+    case 6:
         drawSmokeCloud(-2.5, 3.6);
         break;
 
-    case 6:
-        glColor3f(250, 1.0, 1.0);
-
+    case 7:
         drawSmokeCloud(-2.6, 3.75);
         drawSmokeCloud(-2.6, 3.85);
 
         break;
 
-    case 7:
-        glColor3f(250, 1.0, 1.0);
-
+    case 8:
         drawSmokeCloud(-2.8, 4);
         drawSmokeCloud(-3, 4.5);
         drawSmokeCloud(-3.5, 5);
         break;
 
-    case 8:
-        glColor3f(250, 1, 1.0);
-
+    case 9:
         drawSmokeCloud(-2.9, 5);
         drawSmokeCloud(-3, 4.5);
         drawSmokeCloud(-3.5, 5);
