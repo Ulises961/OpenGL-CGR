@@ -3,28 +3,26 @@
 #include <GL/glut.h>
 #include <math.h>
 
-// void drawSmokeCloud(GLfloat start_x, GLfloat start_y, GLfloat width, GLfloat height){
-//     int end_x = start_x + width;
-//     int end_y = start_y + height;
+void useRed()
+{
+    glColor3f(255, 0, 0);
+}
 
-//     glPushMatrix();
-//     glBegin(GL_POLYGON);
-//     glVertex3f(start_x, start_y, 0.0); // bottom left
-//     glVertex3f(start_x, end_y, 0.0); // top left
-//     glVertex3f(end_x, start_y, 0.0); // bottom right
-//     glVertex3f(end_x, end_y, 0.0); // top right
-//     glEnd();
-//     glPopMatrix();
-// }
+void useYellow()
+{
+    glColor3f(255, 255, 0);
+}
 
-void drawCircle(GLfloat x, GLfloat y)
+void useWhite()
+{
+    glColor3f(255, 255, 255);
+}
+void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
 {
     //static float angle;
 
     int i;
-    double radius = 0.30;
 
-    glColor3f(1, 1, 1);
     double twicePi = 2.0 * 3.142;
 
     glBegin(GL_TRIANGLE_FAN); //BEGIN CIRCLE
@@ -36,13 +34,43 @@ void drawCircle(GLfloat x, GLfloat y)
     }
     glEnd(); //END
 }
+void drawHeatingPad(int counter)
+{
+    int x = 0;
+    int y = -3;
+
+    int i;
+    GLfloat radius = 2.5;
+
+    glPushMatrix();
+    if (counter > 5 && counter < 10)
+        useRed();
+    else if (counter > 2 && counter < 6)
+        useYellow();
+    else
+        useWhite();
+
+        drawCircle(x, y, radius);
+
+    glPopMatrix();
+}
+
 void drawSmokeCloud(GLfloat x, GLfloat y)
 {
-    for (int i = 0; i < 7; i++)
+    glColor3f(250, 1.0, 1.0);
+
+    for (int i = 0; i < 5; i++)
     {
-        x -= 0.3;
-        y += 0.4;
-        drawCircle(x, y);
+        x -= 0.1;
+        y += 0.05;
+  
+    drawCircle(x, y, 0.5);
+  
+        x -= i / 4;
+        y += i / 2;
+       
+    drawCircle(x, y, 0.7);
+    
     }
 }
 
@@ -53,12 +81,12 @@ void smokeCloudSwitch(int cloud_nr)
 
     switch (cloud_nr)
     {
-    case 0:
+    case 5:
         glColor3f(250, 1.0, 1.0);
         drawSmokeCloud(-2.5, 3.6);
         break;
 
-    case 1:
+    case 6:
         glColor3f(250, 1.0, 1.0);
 
         drawSmokeCloud(-2.6, 3.75);
@@ -66,19 +94,19 @@ void smokeCloudSwitch(int cloud_nr)
 
         break;
 
-    case 2:
+    case 7:
         glColor3f(250, 1.0, 1.0);
-       
+
         drawSmokeCloud(-2.8, 4);
         drawSmokeCloud(-3, 4.5);
         drawSmokeCloud(-3.5, 5);
         break;
 
-    case 3:
+    case 8:
         glColor3f(250, 1, 1.0);
 
         drawSmokeCloud(-2.9, 5);
-        drawSmokeCloud(-3,4.5);
+        drawSmokeCloud(-3, 4.5);
         drawSmokeCloud(-3.5, 5);
         break;
 
