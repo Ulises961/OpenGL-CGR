@@ -81,6 +81,32 @@ void drawBorders(){
 	glPopMatrix();
 }
 
+void drawExternalBorders(){
+	useBlack();
+	// Lower Half
+	glPushMatrix();
+	drawFan();
+	glPopMatrix();
+
+	// Pouring slit
+	glPushMatrix();
+	drawTriangle();
+	glPopMatrix();
+
+	// Upper Half
+	glPushMatrix();
+	glTranslatef(0, 1, 0);
+	glRotatef(180, 0, 0, 1);
+	drawFan();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	useBlack();
+	drawRectangle(-1.2, 0, 2.4, 1);
+	glPopMatrix();
+}
+
 void drawMocca(){
 	useGray();
 	// Lower Half

@@ -4,14 +4,14 @@
 #include "stove.cpp"
 #include "smokeCloud.cpp"
 
-int frame = 0;
+float frame = 0;
 
 void animationFrameTimer(int value)
 {
-	glutTimerFunc(300, animationFrameTimer, 0);
+	glutTimerFunc(150, animationFrameTimer, 0);
 
 	if (frame < 13)
-		frame++;
+		frame += 0.4;
 	else
 		frame = 0;
 
@@ -28,6 +28,14 @@ void display()
 	// Cooking Stove
 	glPushMatrix();
 		drawKitchenStove(frame);
+	glPopMatrix();
+
+
+	// Draw Mocca Borders
+	glPushMatrix();
+		glTranslatef(2.7, 1.4, 0);
+		glScaled(0.83, 0.83, 0.83);
+		drawExternalBorders();
 	glPopMatrix();
 
 	// Draw Mocca

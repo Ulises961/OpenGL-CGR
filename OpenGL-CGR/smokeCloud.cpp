@@ -19,12 +19,13 @@ void drawSmokeCloud(GLfloat x, GLfloat y)
     }
 }
 
-void smokeCloudSwitch(int frame)
+void smokeCloudSwitch(float frame)
 {
+    int myframe = (int) frame;
     GLfloat width = 1;
     GLfloat height = 1;
 
-    switch (frame)
+    switch (myframe)
     {
     case 6:
         drawSmokeCloud(-2.5, 3.6);
