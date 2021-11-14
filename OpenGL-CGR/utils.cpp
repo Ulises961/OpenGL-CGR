@@ -19,6 +19,60 @@ void drawRectangle(GLfloat start_x, GLfloat start_y, GLfloat width, GLfloat heig
    
 }
 
+void drawHalfCircle(GLfloat x,GLfloat y )
+{
+	int i;
+
+	GLfloat twicePi = 2.0 * 3.142;
+	GLfloat radius = 2;
+	
+	glBegin(GL_TRIANGLE_FAN); //BEGIN CIRCLE
+
+	glVertex2f(x, y); // center of circle
+	for (i = 0; i <= 10; i++)
+	{
+		glVertex2f(
+			(x + (radius * cos(i * twicePi / 20))), (y + (radius * (sin(i * twicePi / 20) * 0.4))));
+	}
+	glEnd(); //END
+}
+
+void drawLine(GLfloat start_x, GLfloat start_y, GLfloat end_x, GLfloat end_y)
+{
+	glBegin(GL_LINES);
+	glVertex2f(start_x, start_y);
+	glVertex2f(end_x, end_y);
+	glEnd();
+}
+
+void drawTriangle()
+{
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-2, 3.5, 0);
+	glVertex3f(-2.8, 3.5, 0);
+	glVertex3f(-1.5, 2.2, 0);
+	glEnd();
+}
+
+
+void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
+{
+    //static float angle;
+
+    int i;
+
+    double twicePi = 2.0 * 3.142;
+
+    glBegin(GL_TRIANGLE_FAN); //BEGIN CIRCLE
+    glVertex2f(x, y);         // center of circle
+    for (i = 0; i <= 20; i++)
+    {
+        glVertex2f(
+            (x + (radius * cos(i * twicePi / 20))), (y + (radius * sin(i * twicePi / 20))));
+    }
+    glEnd(); //END
+}
+
 void useRed()
 {
     glColor3f(255, 0, 0);

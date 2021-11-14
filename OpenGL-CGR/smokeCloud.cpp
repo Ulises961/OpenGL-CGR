@@ -5,23 +5,7 @@
 #include "utils.cpp"
 
 
-void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
-{
-    //static float angle;
 
-    int i;
-
-    double twicePi = 2.0 * 3.142;
-
-    glBegin(GL_TRIANGLE_FAN); //BEGIN CIRCLE
-    glVertex2f(x, y);         // center of circle
-    for (i = 0; i <= 20; i++)
-    {
-        glVertex2f(
-            (x + (radius * cos(i * twicePi / 20))), (y + (radius * sin(i * twicePi / 20))));
-    }
-    glEnd(); //END
-}
 void drawHeatingPad(int counter)
 {
     int x = 0;
