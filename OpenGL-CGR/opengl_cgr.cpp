@@ -8,7 +8,7 @@ int frame = 0;
 
 void animationFrameTimer(int value)
 {
-	glutTimerFunc(350, animationFrameTimer, 0);
+	glutTimerFunc(300, animationFrameTimer, 0);
 
 	if (frame < 13)
 		frame++;
@@ -27,18 +27,23 @@ void display()
 
 	// Cooking Stove
 	glPushMatrix();
-		drawStove(frame);
+		drawKitchenStove(frame);
 	glPopMatrix();
 
 	// Draw Mocca
 	glPushMatrix();
+		glTranslatef(2.7, 1.4, 0);
+		glScalef(0.8, 0.8, 0.8);
 		drawMocca();
 	glPopMatrix();
 
 	glLoadIdentity();
 
-	// // Smoke Cloud
-	smokeCloudSwitch(frame);
+	// Smoke Cloud
+	glPushMatrix();
+		glTranslatef(2.7, 1.4, 0);
+		smokeCloudSwitch(frame);
+	glPopMatrix();
 
 	//don't wait! process buffered OpenGL routines
 	glFlush();
@@ -53,7 +58,7 @@ void init()
 	//initialize view
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-10.0, 10.0, -10.0, 10.0, -10.0, 10.0);
+	glOrtho(-15.0, 15.0, -15.0, 15.0, -15.0, 15.0);
 
 	//set matrix-mode back to model-view for rendering
 	glMatrixMode(GL_MODELVIEW);
@@ -67,7 +72,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 
 	//initialize window size and position. open window
-	glutInitWindowSize(250, 250);
+	glutInitWindowSize(500, 500);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("OpenGL - CGR");
 

@@ -26,7 +26,7 @@ void drawFan()
 
 void drawPressureValve()
 {
-	useYellow();
+	useWhite();
 	drawCircle(0, 0, 0.2);
 	useBlack();
 	drawCircle(0, 0, 0.05);
@@ -82,6 +82,7 @@ void drawBorders(){
 }
 
 void drawMocca(){
+	useGray();
 	// Lower Half
 	glPushMatrix();
 	drawFan();
