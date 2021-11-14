@@ -1,12 +1,10 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <GL/glut.h>
-
+#include <math.h>
 
 void drawRectangle(GLfloat start_x, GLfloat start_y, GLfloat width, GLfloat height){
     GLfloat end_x = start_x + width;
     GLfloat end_y = start_y + height;
-
 
     glBegin(GL_POLYGON);
         
@@ -16,7 +14,6 @@ void drawRectangle(GLfloat start_x, GLfloat start_y, GLfloat width, GLfloat heig
     glVertex3f(start_x, end_y, 0.0); // top left
 
     glEnd();
-   
 }
 
 void drawHalfCircle(GLfloat x,GLfloat y )
@@ -57,8 +54,6 @@ void drawTriangle()
 
 void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
 {
-    //static float angle;
-
     int i;
 
     double twicePi = 2.0 * 3.142;
@@ -71,28 +66,4 @@ void drawCircle(GLfloat x, GLfloat y, GLfloat radius)
             (x + (radius * cos(i * twicePi / 20))), (y + (radius * sin(i * twicePi / 20))));
     }
     glEnd(); //END
-}
-
-void useRed()
-{
-    glColor3f(255, 0, 0);
-}
-
-void useYellow()
-{
-    glColor3f(255, 255, 0);
-}
-
-void useWhite()
-{
-    glColor3f(255, 255, 255);
-}
-
-void useBlack()
-{
-    glColor3f(0, 0, 0);
-}
-
-void useGray(){
-    glColor3f(0.5, 0.5, 0.5);
 }

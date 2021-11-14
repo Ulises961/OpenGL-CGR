@@ -1,31 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <GL/glut.h>
-#include <math.h>
-#include "utils.cpp"
 
-
-
-void drawHeatingPad(int counter)
-{
-    int x = 0;
-    int y = -3;
-
-    int i;
-    GLfloat radius = 2.5;
-
-    glPushMatrix();
-    if (counter > 5 && counter < 10)
-        useRed();
-    else if (counter > 2 && counter < 6)
-        useYellow();
-    else
-        useWhite();
-
-        drawCircle(x, y, radius);
-
-    glPopMatrix();
-}
 
 void drawSmokeCloud(GLfloat x, GLfloat y)
 {
@@ -46,12 +19,12 @@ void drawSmokeCloud(GLfloat x, GLfloat y)
     }
 }
 
-void smokeCloudSwitch(int cloud_nr)
+void smokeCloudSwitch(int frame)
 {
     GLfloat width = 1;
     GLfloat height = 1;
 
-    switch (cloud_nr)
+    switch (frame)
     {
     case 6:
         drawSmokeCloud(-2.5, 3.6);
