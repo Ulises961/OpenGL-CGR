@@ -18,21 +18,23 @@ void drawHandle()
 {
 	useBlack();
 	glPushMatrix();
-	drawRectangle(1.8, 2.5, 1.4, 0.6);
+		drawRectangle(1.9, 2.7, 1.4, 0.8);
 	glPopMatrix();
+	
 	glPushMatrix();
+		glTranslatef(3.55, 2.5, 0);
+		glRotatef(-60.0, 0.0, 0.0, 1.0);
+		glTranslatef(-1, -0.3, 0);
+		drawRectangle(0, 0, 2.0, 0.6);
+	glPopMatrix();
 
-	glTranslatef(3.4, 2.65, 0);
-	glRotatef(-60.0, 0.0, 0.0, 1.0);
-	glTranslatef(-0.5, -0.5, 0);
-	drawRectangle(0, 0, 2.0, 0.6);
-	glPopMatrix();
 	glPushMatrix();
-	glTranslatef(3.6, 1.12, 0);
-	glRotatef(80.0, 0.0, 0.0, 1.0);
-	glTranslatef(-0.5, -0.5, 0);
-	drawRectangle(0.0, 0.0, 1.0, 0.6);
+		glTranslatef(3.9, 1.35, 0);
+		glRotatef(75.0, 0.0, 0.0, 1.0);
+		glTranslatef(-0.5, -0.3, 0);
+		drawRectangle(0.0, 0.0, 1.0, 0.6);
 	glPopMatrix();
+	
 	glLoadIdentity();
 }
 
@@ -80,22 +82,24 @@ void drawFan()
 {
 
 	GLfloat triangleVertices[] = {
-		0,0,0, // Center
-		1.5,0.2,0, // upperRight
-		2,-2.5,0, // bottomRight
-		1,-3,0, // bottomCenterRight
-		-1,-3,0, // bottomCenterLeft
-		-2,-2.5,0, // bottomLeft
-		-1.5,0.2,0, // upperLeft
-		-0.5,0.5,0, // upperCenterLeft
-		0.5,0.5,0, // upperCenterRight
-		 1.5,0.2,0, // closingCircle
+		0, 0, 0,	  // Center
+		1.5, 0.2, 0,  // upperRight
+		2, -2.5, 0,	  // bottomRight
+		1, -3, 0,	  // bottomCenterRight
+		-1, -3, 0,	  // bottomCenterLeft
+		-2, -2.5, 0,  // bottomLeft
+		-1.5, 0.2, 0, // upperLeft
+		-0.5, 0.5, 0, // upperCenterLeft
+		0.5, 0.5, 0,  // upperCenterRight
+		1.5, 0.2, 0,  // closingCircle
 
 	};
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, triangleVertices);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 10);
+	drawLine(-0.5, 0.3, -1, -3);
+	drawLine(0.5, 0.3, 1, -3);
 	glDisableClientState(GL_VERTEX_ARRAY);
 }
 //render method (callback-function)
@@ -142,24 +146,28 @@ void display()
 	glTranslatef(0, 4.2, 0);
 	glScalef(0.2, 0.2, 0.2);
 	glRotatef(180, 0, 0, 1);
+
 	drawFan();
 	glPopMatrix();
-	
+
 	useGray();
 
 	drawRectangle(-1.2, 0, 2.4, 1);
 	glPushMatrix();
 	useBlack();
+
+	// Lower half trapecies arists
 	drawLine(-0.5, 0.3, -1, -3);
 	drawLine(0.5, 0.3, 1, -3);
-	
-	// drawLine(1.5, 0.2, , );
-	// drawLine(, , , );
 
+	drawLine(-0.5, 0.7, -1, 3.5);
+	drawLine(0.5, 0.7, 1, 3.5);
+
+	//Rim lines
 	drawLine(-1.2, 0.7, 1.2, 0.7);
 	drawLine(-1.2, 0.3, 1.2, 0.3);
 	glPopMatrix();
-	
+
 	smokeCloudSwitch(smoke);
 	//don't wait! process buffered OpenGL routines
 	glFlush();
