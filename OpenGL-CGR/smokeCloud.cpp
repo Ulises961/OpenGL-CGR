@@ -2,18 +2,24 @@
 
 void drawSmokeCloud(GLfloat x, GLfloat y)
 {
-    useWhite();
+    
 
     for (int i = 0; i < 5; i++)
     {
         x -= 0.1;
         y += 0.05;
-  
+    
+    useBlack();
+    drawCircle(x, y, 0.6);
+    useWhite();
     drawCircle(x, y, 0.5);
   
         x -= i / 4;
         y += i / 2;
        
+    useBlack();
+    drawCircle(x, y, 0.7);
+    useWhite();
     drawCircle(x, y, 0.6);
     
     }
